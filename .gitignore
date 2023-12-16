@@ -28,7 +28,7 @@ share/python-wheels/
 MANIFEST
 
 # Flake8 cfg file
-.setup.cfg
+setup.cfg
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
