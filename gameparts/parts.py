@@ -22,7 +22,7 @@ class Car:
             )
             pygame.draw.rect(surface, self.body_color, rect)
             pygame.draw.rect(surface, (93, 216, 228), rect, 1)
-        
+
         head_rect = pygame.Rect(
             (position[0], position[1]), (GRID_SIZE, GRID_SIZE)
         )
