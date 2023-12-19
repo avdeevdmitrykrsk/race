@@ -1,6 +1,6 @@
 import pygame
-from gameparts import Car
-from gameparts import CarEnemy
+
+from gameparts import Car, CarEnemy, draw_crash
 
 pygame.init()
 
@@ -11,7 +11,7 @@ GRID_HEIGHT = SCREEN_HEIGHT // GRID_SIZE
 
 BOARD_BACKGROUND_COLOR = (106, 250, 151)
 
-SPEED = 10
+GAME_SPEED = 20
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 screen.fill(BOARD_BACKGROUND_COLOR)
@@ -41,17 +41,30 @@ def handle_keys(game_object):
         break
 
 
-def main():
+def check_collision(car_main1, car_enemy):
+    for crash in car_main1.front_side:
+        for crosh in car_enemy.back_side:
+            if crosh == crash:
+                car_main1.position.clear()
+                car_enemy.position.clear()
+                car_enemy.move_back()
+                draw_crash(car_main1, car_enemy)
+            else:
+                continue
 
+
+def main():
     car_main1 = Car()
     car_enemy_blue = CarEnemy()
 
     while True:
-        clock.tick(SPEED)
+        clock.tick(GAME_SPEED)
         handle_keys(car_main1)
         car_main1.update_direction()
         car_main1.move()
         car_enemy_blue.move()
+        screen.fill(BOARD_BACKGROUND_COLOR)
+        check_collision(car_main1, car_enemy_blue)
         car_main1.draw(screen)
         car_enemy_blue.draw(screen)
         pygame.display.update()
