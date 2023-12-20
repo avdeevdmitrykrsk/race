@@ -1,8 +1,10 @@
 import pygame
 
-from gameparts import Car, CarEnemy, draw_crash
+from gameparts import Car, CarEnemyBlue, CarEnemyRed, draw_crash
 
 pygame.init()
+
+score = 0
 
 GRID_SIZE = 20
 SCREEN_WIDTH, SCREEN_HEIGHT = 1240, 800
@@ -11,7 +13,7 @@ GRID_HEIGHT = SCREEN_HEIGHT // GRID_SIZE
 
 BOARD_BACKGROUND_COLOR = (106, 250, 151)
 
-GAME_SPEED = 20
+GAME_SPEED = 30
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 screen.fill(BOARD_BACKGROUND_COLOR)
@@ -42,31 +44,57 @@ def handle_keys(game_object):
 
 
 def check_collision(car_main1, car_enemy):
-    for crash in car_main1.front_side:
-        for crosh in car_enemy.back_side:
-            if crosh == crash:
-                car_main1.position.clear()
-                car_enemy.position.clear()
-                car_enemy.move_back()
-                draw_crash(car_main1, car_enemy)
-            else:
-                continue
+    global crash
+    if car_enemy.exist:
+        for crash in car_main1.front_side:
+            for crosh in car_enemy.back_side:
+                if crosh == crash:
+                    car_enemy.exist = False
+                    car_main1.position.clear()
+                    draw_crash(car_main1, car_enemy)
+                else:
+                    continue
+
+
+def car_enemy_timer(car_enemy_blue, car_enemy_red):
+    global score
+    if car_enemy_blue.exist:
+        if car_enemy_blue.position[0][1] > 800:
+            score += 1
+            car_enemy_blue.exist = False
+            car_enemy_red.exist = True
+            car_enemy_red.randomize_position()
+    elif car_enemy_red.exist:
+        if car_enemy_red.position[0][1] > 800:
+            score += 1
+            car_enemy_red.exist = False
+            car_enemy_blue.exist = True
+            car_enemy_blue.randomize_position()
+
+
+def check_win():
+    pass
 
 
 def main():
     car_main1 = Car()
-    car_enemy_blue = CarEnemy()
+    car_enemy_blue = CarEnemyBlue()
+    car_enemy_red = CarEnemyRed()
 
     while True:
         clock.tick(GAME_SPEED)
         handle_keys(car_main1)
         car_main1.update_direction()
         car_main1.move()
-        car_enemy_blue.move()
         screen.fill(BOARD_BACKGROUND_COLOR)
+        car_enemy_timer(car_enemy_blue, car_enemy_red)
+        car_enemy_blue.move()
+        car_enemy_red.move()
         check_collision(car_main1, car_enemy_blue)
-        car_main1.draw(screen)
+        check_collision(car_main1, car_enemy_red)
         car_enemy_blue.draw(screen)
+        car_enemy_red.draw(screen)
+        car_main1.draw(screen)
         pygame.display.update()
 
 
