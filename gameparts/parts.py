@@ -2,11 +2,12 @@ from random import randrange
 
 import pygame
 
-GRID_SIZE = 20
+GRID_SIZE = 10
 BOARD_BACKGROUND_COLOR = (106, 250, 151)
 
-CAR_MAIN_GRID = 20
-CAR_ENEMY_GRID = 40
+CAR_MAIN_GRID = 10
+CAR_ENEMY_GRID = 20
+BACKWARD_SPEED = 20
 
 
 class Car:
@@ -49,13 +50,11 @@ class Car:
 
             self.last_pos = [self.position[0]]
 
-            self.front_side = [
-                (self.position[0]),
-                (self.position[0][0] + 20, self.position[0][1]),
-                (self.position[0][0] + 40, self.position[0][1]),
-                (self.position[0][0] + 60, self.position[0][1]),
-                (self.position[0][0] + 80, self.position[0][1]),
-            ]
+            self.front_side.clear()
+            for i in range(0, 81, 10):
+                self.front_side.append(
+                    (self.position[0][0] + i, self.position[0][1]),
+                )
 
     def draw(self, surface):
         """Метод отрисовывает машину игрока."""
@@ -84,7 +83,7 @@ class CarEnemyBlue:
         self.position = []
         self.randomize_position()
         self.position_next = []
-        self.back_side = None
+        self.back_side = []
         self.last_pos = []
         self.backward_pos = []
 
@@ -96,13 +95,12 @@ class CarEnemyBlue:
             ]
             self.position.clear()
             self.position.append(self.position_next[0])
-            self.back_side = [
-                (self.position[0][0], self.position[0][1] + 100),
-                (self.position[0][0] + 20, self.position[0][1] + 100),
-                (self.position[0][0] + 40, self.position[0][1] + 100),
-                (self.position[0][0] + 60, self.position[0][1] + 100),
-                (self.position[0][0] + 80, self.position[0][1] + 100),
-            ]
+
+            for i in range(0, 81, 20):
+                self.back_side.append(
+                    (self.position[0][0] + i, self.position[0][1] + 100),
+                )
+
             self.position_next.clear()
             self.last_pos.clear()
             self.last_pos = [self.position[0]]
@@ -116,7 +114,7 @@ class CarEnemyBlue:
         self.position_next.append(self.last_pos[0])
         self.backward_pos.append(
             (self.position_next[0][0],
-             self.position_next[0][1] - 15)
+             self.position_next[0][1] - BACKWARD_SPEED)
         )
         self.position_next.clear()
         self.position_next.append(self.backward_pos[0])

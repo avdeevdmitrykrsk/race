@@ -6,14 +6,11 @@ pygame.init()
 
 score = 0
 
-GRID_SIZE = 20
 SCREEN_WIDTH, SCREEN_HEIGHT = 1240, 800
-GRID_WIDTH = SCREEN_WIDTH // GRID_SIZE
-GRID_HEIGHT = SCREEN_HEIGHT // GRID_SIZE
 
 BOARD_BACKGROUND_COLOR = (106, 250, 151)
 
-GAME_SPEED = 30
+GAME_SPEED = 40
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 screen.fill(BOARD_BACKGROUND_COLOR)
@@ -44,7 +41,6 @@ def handle_keys(game_object):
 
 
 def check_collision(car_main1, car_enemy):
-    global crash
     if car_enemy.exist:
         for crash in car_main1.front_side:
             for crosh in car_enemy.back_side:
