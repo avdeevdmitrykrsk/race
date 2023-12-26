@@ -83,11 +83,13 @@ class CarEnemyBlue:
             'car_objects_png/car_enemy_blue.png'
         )
         self.position = []
-        self.randomize_position()
         self.position_next = []
         self.back_side = []
+        self.left_side = []
+        self.right_side = []
         self.last_pos = []
         self.backward_pos = []
+        self.randomize_position()
 
     def move(self):
         """Метод перемещает вражескую машину."""
@@ -97,10 +99,20 @@ class CarEnemyBlue:
             ]
             self.position.clear()
             self.position.append(self.position_next[0])
-
-            for i in range(0, 81, 20):
+            self.back_side.clear()
+            self.left_side.clear()
+            self.right_side.clear()
+            for i in range(20, 81, 20):
                 self.back_side.append(
                     (self.position[0][0] + i, self.position[0][1] + 100),
+                )
+            for i in range(20, 101, 20):
+                self.left_side.append(
+                    (self.position[0][0], self.position[0][1] + i)
+                )
+            for i in range(20, 101, 20):
+                self.right_side.append(
+                    (self.position[0][0] + 80, self.position[0][1] + i)
                 )
 
             self.position_next.clear()
@@ -108,7 +120,7 @@ class CarEnemyBlue:
             self.last_pos = [self.position[0]]
 
     def randomize_position(self):
-        pos_x = randrange(500, 800, 20)
+        pos_x = randrange(550, 750, 20)
         self.position = [(pos_x, -220)]
 
     def move_back(self):
@@ -144,8 +156,10 @@ class CarEnemyRed(CarEnemyBlue):
             'car_objects_png/car_enemy_red.png'
         )
         self.position = []
-        self.randomize_position()
         self.position_next = []
-        self.back_side = None
+        self.back_side = []
+        self.left_side = []
+        self.right_side = []
         self.last_pos = []
         self.backward_pos = []
+        self.randomize_position()

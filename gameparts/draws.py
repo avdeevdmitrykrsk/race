@@ -6,7 +6,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 clock = pygame.time.Clock()
 
 
-def draw_crash(car_main1, car_enemy):
+def draw_crash_back_side(car_main1, car_enemy):
     car_enemy.move_back()
 
     while car_enemy.position_next[0][1] > -120:

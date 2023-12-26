@@ -1,6 +1,6 @@
 import pygame
 
-from gameparts import Car, CarEnemyBlue, CarEnemyRed, draw_crash
+from gameparts import Car, CarEnemyBlue, CarEnemyRed, draw_crash_back_side
 
 pygame.init()
 
@@ -47,7 +47,23 @@ def check_collision(car_main1, car_enemy):
                 if crosh == crash:
                     car_enemy.exist = False
                     car_main1.position.clear()
-                    draw_crash(car_main1, car_enemy)
+                    draw_crash_back_side(car_main1, car_enemy)
+                else:
+                    continue
+        for crash in car_main1.front_side:
+            for crosh in car_enemy.left_side:
+                if crosh == crash:
+                    car_enemy.exist = False
+                    car_main1.position.clear()
+                    draw_crash_back_side(car_main1, car_enemy)
+                else:
+                    continue
+        for crash in car_main1.front_side:
+            for crosh in car_enemy.right_side:
+                if crosh == crash:
+                    car_enemy.exist = False
+                    car_main1.position.clear()
+                    draw_crash_back_side(car_main1, car_enemy)
                 else:
                     continue
 
@@ -55,17 +71,19 @@ def check_collision(car_main1, car_enemy):
 def car_enemy_timer(car_enemy_blue, car_enemy_red):
     global score
     if car_enemy_blue.exist:
-        if car_enemy_blue.position[0][1] > 800:
-            score += 1
-            car_enemy_blue.exist = False
+        if car_enemy_blue.position[0][1] == 300:
             car_enemy_red.exist = True
             car_enemy_red.randomize_position()
-    elif car_enemy_red.exist:
-        if car_enemy_red.position[0][1] > 800:
+        elif car_enemy_blue.position[0][1] > 800:
             score += 1
-            car_enemy_red.exist = False
+            car_enemy_blue.exist = False
+    if car_enemy_red.exist:
+        if car_enemy_red.position[0][1] == 300:
             car_enemy_blue.exist = True
             car_enemy_blue.randomize_position()
+        elif car_enemy_red.position[0][1] > 800:
+            score += 1
+            car_enemy_red.exist = False
 
 
 def check_win():
