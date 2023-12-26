@@ -11,7 +11,6 @@ BACKWARD_SPEED = 20
 
 
 class Car:
-
     def __init__(self):
         self.car_main_get = pygame.image.load('car_objects_png/car_main.png')
         self.position = [(620, 600)]
@@ -30,8 +29,10 @@ class Car:
             if self.flleft:
                 if self.direction == 'Left':
                     self.position_next.append(
-                        (self.position[0][0] - CAR_MAIN_GRID,
-                         self.position[0][1])
+                        (
+                            self.position[0][0] - CAR_MAIN_GRID,
+                            self.position[0][1],
+                        )
                     )
                     self.position.clear()
                     self.position.append(self.position_next[0])
@@ -40,8 +41,10 @@ class Car:
             elif self.flright:
                 if self.direction == 'Right':
                     self.position_next.append(
-                        (self.position[0][0] + CAR_MAIN_GRID,
-                         self.position[0][1])
+                        (
+                            self.position[0][0] + CAR_MAIN_GRID,
+                            self.position[0][1],
+                        )
                     )
                     self.position.clear()
                     self.position.append(self.position_next[0])
@@ -71,7 +74,6 @@ class Car:
 
 
 class CarEnemyBlue:
-
     def __init__(self):
         self.exist = True
         self.car_enemy_crash = pygame.image.load(
@@ -113,8 +115,10 @@ class CarEnemyBlue:
         """Метод перемещает вражескую машину в обратном направлении."""
         self.position_next.append(self.last_pos[0])
         self.backward_pos.append(
-            (self.position_next[0][0],
-             self.position_next[0][1] - BACKWARD_SPEED)
+            (
+                self.position_next[0][0],
+                self.position_next[0][1] - BACKWARD_SPEED,
+            )
         )
         self.position_next.clear()
         self.position_next.append(self.backward_pos[0])
@@ -130,7 +134,6 @@ class CarEnemyBlue:
 
 
 class CarEnemyRed(CarEnemyBlue):
-
     def __init__(self):
         super().__init__()
         self.exist = False
