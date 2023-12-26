@@ -6,6 +6,11 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 clock = pygame.time.Clock()
 
 
+def draw_window():
+    road_get = pygame.image.load('car_objects_png/road.jpg')
+    screen.blit(road_get, (0, 0))
+
+
 def draw_crash_back_side(car_main1, car_enemy):
     car_enemy.move_back()
 
@@ -13,7 +18,7 @@ def draw_crash_back_side(car_main1, car_enemy):
         car_enemy.move_back()
 
         clock.tick(20)
-        screen.fill(BOARD_BACKGROUND_COLOR)
+        draw_window()
 
         car_main_get = pygame.image.load('car_objects_png/car_main.png')
         car_main = car_main_get.get_rect(topright=car_main1.last_pos[0])

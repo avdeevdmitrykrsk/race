@@ -1,6 +1,7 @@
 import pygame
 
-from gameparts import Car, CarEnemyBlue, CarEnemyRed, draw_crash_back_side
+from gameparts import Car, CarEnemyBlue, CarEnemyRed
+from gameparts import draw_crash_back_side, draw_window
 
 pygame.init()
 
@@ -10,10 +11,9 @@ SCREEN_WIDTH, SCREEN_HEIGHT = 1240, 800
 
 BOARD_BACKGROUND_COLOR = (106, 250, 151)
 
-GAME_SPEED = 40
+GAME_SPEED = 60
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
-screen.fill(BOARD_BACKGROUND_COLOR)
 
 pygame.display.set_caption('Гонка')
 
@@ -100,7 +100,7 @@ def main():
         handle_keys(car_main1)
         car_main1.update_direction()
         car_main1.move()
-        screen.fill(BOARD_BACKGROUND_COLOR)
+        draw_window()
         car_enemy_timer(car_enemy_blue, car_enemy_red)
         car_enemy_blue.move()
         car_enemy_red.move()

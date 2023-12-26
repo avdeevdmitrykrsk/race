@@ -120,7 +120,7 @@ class CarEnemyBlue:
             self.last_pos = [self.position[0]]
 
     def randomize_position(self):
-        pos_x = randrange(550, 750, 20)
+        pos_x = randrange(150, 900, 20)
         self.position = [(pos_x, -220)]
 
     def move_back(self):
