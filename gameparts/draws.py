@@ -10,6 +10,9 @@ def draw_window():
     road_get = pygame.image.load('car_objects_png/road.jpg')
     screen.blit(road_get, (0, 0))
 
+def draw_score():
+    pass
+
 
 def draw_crash_back_side(car_main1, car_enemy):
     car_enemy.move_back()
