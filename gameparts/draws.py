@@ -5,13 +5,13 @@ SCREEN_WIDTH, SCREEN_HEIGHT = 1240, 800
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 clock = pygame.time.Clock()
 
+score = 0
+
+
 
 def draw_window():
     road_get = pygame.image.load('car_objects_png/road.jpg')
     screen.blit(road_get, (0, 0))
-
-def draw_score():
-    pass
 
 
 def draw_crash_back_side(car_main1, car_enemy):
@@ -41,5 +41,3 @@ def draw_crash_back_side(car_main1, car_enemy):
         )
         screen.blit(crashing_get, crashing_main)
         pygame.display.update()
-
-    pygame.quit()
